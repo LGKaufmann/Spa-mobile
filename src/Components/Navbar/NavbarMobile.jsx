@@ -29,16 +29,40 @@ const NavbarMobile = () => {
       "invert(29%) sepia(72%) saturate(3094%) hue-rotate(327deg) brightness(92%) contrast(93%)",
   };
 
+  const excludedRoutes = [
+    "/aplicacion-web",
+    "/app-login",
+    "/loginProfesionalesApp",
+    "/loginSecretariaApp",
+    "/home-app",
+    "/pagos",
+    "/homeProfesional",
+    "/homeSecretaria",
+    "/loginPersonalApp",
+    "/adminApp",
+    "/listadoClientes",
+    "/listadoClientesDia",
+    "/informeServicios",
+    "/informeIngresos",
+    "/listadoClientesProfesional",
+    "/ServiciosApp"
+  ];
+  const showNavbar = !excludedRoutes.includes(location.pathname);
   return (
+    showNavbar && (
     <nav className="bg-gradient-to-r from-[#E486A7] to-[#79B250] py-2 px-4 shadow-lg">
       <div className="flex justify-between items-center">
         <Link
           to={
             !token
-              ? "/"
-              : user?.email === "admin@gmail.com"
-              ? "/admin"
-              : "/home"
+            ? "/"
+            : user?.email === "admin@gmail.com"
+            ? "/admin"
+            : user?.userType === "profesional"
+            ? "/homeProfesional"
+            : user?.userType === "secretaria"
+            ? "/homeSecretaria"
+            : "/home"
           }
         >
           <img
@@ -90,6 +114,11 @@ const NavbarMobile = () => {
                 Registro
               </button>
             </Link>
+            <Link to="/aplicacion-web">
+                    <button className="bg-[#cb0c4f] text-white font-semibold py-2 px-4 rounded transition-transform transform hover:scale-105 hover:shadow-lg">
+                      Aplicacion Web
+                    </button>
+                  </Link>
           </div>
         ) : (
           <div className="flex space-x-3">
@@ -121,6 +150,7 @@ const NavbarMobile = () => {
         )}
       </div>
     </nav>
+    )
   );
 };
 

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { crearOpinion } from "../../redux/servicesAction";
+import { useLocation } from "react-router-dom"; // Importa useLocation
 
 const Footer = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
+  const location = useLocation(); // Usa useLocation para obtener la ubicación actual
 
   const handleCommentChange = (e) => {
     setText(e.target.value);
@@ -17,6 +19,33 @@ const Footer = () => {
     };
     dispatch(crearOpinion(body));
   };
+
+  // Define las rutas en las que quieres ocultar el Footer
+  const hiddenRoutes = ["/aplicacion-web",
+    "/app-login",
+    "/loginProfesionalesApp",
+    "/loginSecretariaApp",
+    "/home-app",
+    "/pagos",
+    "/homeProfesional",
+    "/homeSecretaria",
+    "/loginPersonalApp",
+    "/adminApp",
+    "/listadoClientes",
+    "/listadoClientesDia",
+    "/informeServicios",
+    "/informeIngresos",
+    "/listadoClientesProfesional",
+    "/ServiciosApp"
+  ]; // Agrega las rutas que desees
+
+  // Comprueba si la ruta actual está en las rutas ocultas
+  const shouldHideFooter = hiddenRoutes.includes(location.pathname);
+
+  // Si shouldHideFooter es true, no se renderiza el Footer
+  if (shouldHideFooter) {
+    return null;
+  }
 
   return (
     <footer className="bg-gradient-to-r from-[#E486A7] to-[#79B250] text-white py-8 relative">
