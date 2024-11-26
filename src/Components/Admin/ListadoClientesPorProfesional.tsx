@@ -138,12 +138,18 @@ const ListadoClientesPorProfesional: React.FC = () => {
         {/* Overlay oscuro */}
         <div className="absolute inset-0 bg-black opacity-20"></div>
 
-        <h2 className="text-4xl font-bold text-center mb-8 z-10 relative" style={{ fontFamily: "'Playball', cursive", color: "#cb0c4f" }}>
+        <h2
+          className="text-4xl font-bold text-center mb-8 z-10 relative"
+          style={{ fontFamily: "'Playball', cursive", color: "#cb0c4f" }}
+        >
           Listado de Clientes por Profesional
         </h2>
 
         <div className="mb-6 z-10 relative">
-          <label htmlFor="profesional" className="block text-lg font-medium text-white mb-2">
+          <label
+            htmlFor="profesional"
+            className="block text-lg font-medium text-white mb-2"
+          >
             Selecciona un Profesional:
           </label>
           <select
@@ -169,49 +175,83 @@ const ListadoClientesPorProfesional: React.FC = () => {
           </p>
         ) : (
           <div className="border border-gray-300 rounded-lg shadow-lg bg-white p-6 z-10 relative">
-            <table className="min-w-full text-black border border-gray-200 shadow-sm rounded-lg">
-              <thead className="bg-[#cb0c4f] text-white">
-                <tr>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Nombre</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Apellido</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">DNI</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Email</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Celular</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Servicio</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Fecha</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Hora</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-50">
-                {filteredClientes.map((cliente, index) => {
-                  const clienteTurnos = turnos.filter(
-                    (turno) =>
-                      turno.usuario && // Check if usuario exists
-                      turno.usuario._id === cliente._id &&
-                      turno.profesional && // Check if profesional exists
-                      turno.profesional._id === selectedProfesional
-                  );
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-black border border-gray-200 shadow-sm rounded-lg">
+                <thead className="bg-[#cb0c4f] text-white">
+                  <tr>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      Nombre
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      Apellido
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      DNI
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      Email
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      Celular
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      Servicio
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      Fecha
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-200">
+                      Hora
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-gray-50">
+                  {filteredClientes.map((cliente, index) => {
+                    const clienteTurnos = turnos.filter(
+                      (turno) =>
+                        turno.usuario && // Check if usuario exists
+                        turno.usuario._id === cliente._id &&
+                        turno.profesional && // Check if profesional exists
+                        turno.profesional._id === selectedProfesional
+                    );
 
-                  return clienteTurnos.map((turno, turnoIndex) => (
-                    <tr
-                      key={`${cliente._id}-${turnoIndex}`}
-                      className={`${
-                        index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                      } hover:bg-[#cb0c4f] hover:bg-opacity-10 transition-colors`}
-                    >
-                      <td className="px-6 py-4 border-b border-gray-200">{cliente.nombre}</td>
-                      <td className="px-6 py-4 border-b border-gray-200">{cliente.apellido}</td>
-                      <td className="px-6 py-4 border-b border-gray-200">{cliente.dni}</td>
-                      <td className="px-6 py-4 border-b border-gray-200">{cliente.email}</td>
-                      <td className="px-6 py-4 border-b border-gray-200">{cliente.celular}</td>
-                      <td className="px-6 py-4 border-b border-gray-200">{turno.servicio.nombre}</td>
-                      <td className="px-6 py-4 border-b border-gray-200">{turno.fecha}</td>
-                      <td className="px-6 py-4 border-b border-gray-200">{turno.hora}</td>
-                    </tr>
-                  ));
-                })}
-              </tbody>
-            </table>
+                    return clienteTurnos.map((turno, turnoIndex) => (
+                      <tr
+                        key={`${cliente._id}-${turnoIndex}`}
+                        className={`${
+                          index % 2 === 0 ? "bg-white" : "bg-gray-100"
+                        } hover:bg-[#cb0c4f] hover:bg-opacity-10 transition-colors`}
+                      >
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {cliente.nombre}
+                        </td>
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {cliente.apellido}
+                        </td>
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {cliente.DNI}
+                        </td>
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {cliente.email}
+                        </td>
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {cliente.celular}
+                        </td>
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {turno.servicio.nombre}
+                        </td>
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {turno.fecha}
+                        </td>
+                        <td className="px-6 py-4 border-b border-gray-200">
+                          {turno.hora}
+                        </td>
+                      </tr>
+                    ));
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </main>

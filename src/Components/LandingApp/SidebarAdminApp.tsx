@@ -1,54 +1,72 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/userAction";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useSelector } from "react-redux";
 
 const SidebarAdminApp: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state: any) => state.users);
 
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("token");
     navigate("/");
   };
-  const { user } = useSelector((state:any) => state.users);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className="flex relative min-h-screen">
-      {/* Sidebar */}
-      <div className={`flex flex-col ${isOpen ? "w-64" : "w-16"} bg-[#cb0c4f] text-white transition-all duration-300 ease-in-out shadow-lg`}>
-        
-        {/* Botón de despliegue/plegado */}
-        <button
-          onClick={toggleSidebar}
-          className="p-2 m-2 bg-green-700 text-white rounded-full shadow-lg focus:outline-none"
-          style={{ position: "fixed", top: "1rem", left: isOpen ? "16rem" : "4rem", zIndex: 50 }}
-        >
-          {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-        </button>
+    <div className="relative">
+      {/* Botón flotante para abrir/cerrar */}
+      <button
+        onClick={toggleSidebar}
+        className="p-3 bg-green-700 text-white fixed top-4 left-4 rounded-full shadow-lg z-50 focus:outline-none lg:hidden"
+      >
+        {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+      </button>
 
-        {/* Contenido de la Sidebar */}
-        <div className={`p-6 ${isOpen ? "visible" : "invisible"} transition-opacity duration-300 ease-in-out`}>
-          <h2 className="text-2xl font-bold mb-8 text-center">Panel de Administración</h2>
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-screen bg-[#cb0c4f] text-white shadow-lg z-40 transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:w-64`}
+      >
+        <div className="p-6">
+          <h2 className="text-2xl font-bold mb-8 text-center">
+            Panel de Administración
+          </h2>
           <ul className="space-y-4">
-          { user?.userType === "secretaria" &&  
-          <>
-          <li>
+            <li>
               <Link
-                to="/homeSecretaria"
+                to={
+                  user?.email === "admin@gmail.com"
+                    ? "/adminApp"
+                    : user?.userType === "profesional"
+                    ? "/homeProfesional"
+                    : user?.userType === "secretaria"
+                    ? "/homeSecretaria"
+                    : "/home"
+                }
                 className="hover:bg-green-700 hover:text-white text-white p-3 block rounded-lg transition duration-300 ease-in-out text-center"
               >
-                Pagos Realizados
+                Inicio
               </Link>
             </li>
-            </>
-            }
+            {user?.userType === "secretaria" && (
+              <>
+                <li>
+                  <Link
+                    to="/homeSecretaria"
+                    className="hover:bg-green-700 hover:text-white text-white p-3 block rounded-lg transition duration-300 ease-in-out text-center"
+                  >
+                    Pagos Realizados
+                  </Link>
+                </li>
+              </>
+            )}
             <li>
               <Link
                 to="/listadoClientes"
@@ -65,27 +83,26 @@ const SidebarAdminApp: React.FC = () => {
                 Listado de clientes a atender por día
               </Link>
             </li>
-            { user?.userType === "admin" &&   
-            <>
-            <li>
-              <Link
-                to="/listadoClientesProfesional"
-                className="hover:bg-green-700 hover:text-white text-white p-3 block rounded-lg transition duration-300 ease-in-out text-center"
-              >
-                Listado de clientes por profesional
-              </Link>
-            </li> 
-             <li>
-             <Link
-               to="/ServiciosApp"
-               className="hover:bg-green-700 hover:text-white text-white p-3 block rounded-lg transition duration-300 ease-in-out text-center"
-             >
-               Servicios
-             </Link>
-           </li>
-           </>
-            }
-           
+            {user?.userType === "admin" && (
+              <>
+                <li>
+                  <Link
+                    to="/listadoClientesProfesional"
+                    className="hover:bg-green-700 hover:text-white text-white p-3 block rounded-lg transition duration-300 ease-in-out text-center"
+                  >
+                    Listado de clientes por profesional
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/ServiciosApp"
+                    className="hover:bg-green-700 hover:text-white text-white p-3 block rounded-lg transition duration-300 ease-in-out text-center"
+                  >
+                    Servicios
+                  </Link>
+                </li>
+              </>
+            )}
             <li>
               <Link
                 to="/informeServicios"
@@ -104,7 +121,7 @@ const SidebarAdminApp: React.FC = () => {
             </li>
           </ul>
 
-          {/* Botón de cerrar sesión alineado y estilizado */}
+          {/* Botón de cerrar sesión */}
           <div className="mt-auto flex justify-center mb-4">
             <button
               onClick={handleLogout}
@@ -114,6 +131,15 @@ const SidebarAdminApp: React.FC = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Contenido principal */}
+      <div
+        className={`flex-1 lg:ml-64 transition-all duration-300 ${
+          isOpen ? "opacity-50 pointer-events-none" : "opacity-100"
+        }`}
+      >
+        {/* Aquí iría el contenido principal */}
       </div>
     </div>
   );
