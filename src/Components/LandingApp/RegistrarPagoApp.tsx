@@ -131,7 +131,7 @@ const RegistrarPagoApp: React.FC = () => {
       Swal.fire({
         icon: "success",
         title: "Pago registrado con éxito",
-        text: `Se aplicó un descuento del 10%. Total pagado: ${cantidadConDescuento}`,
+        text: `Se aplicó un descuento del 10%!. Total pagado: ${cantidadConDescuento}`,
         showConfirmButton: false,
         timer: 2000,
       }).then(() => {
