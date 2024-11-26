@@ -52,8 +52,8 @@ const LandingAdminApp: React.FC = () => {
       {/* Contenido principal */}
       <div className="flex-1 p-6 bg-green-700">
         <div className="max-w-6xl w-full bg-white rounded-lg shadow-lg p-6">
-          <header className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-[#cb0c4f] mb-4 drop-shadow-lg">
+          <header className="text-center">
+            <h1 className="text-4xl font-bold text-[#cb0c4f] drop-shadow-lg">
               Bienvenido a la App, Administrador!
             </h1>
             <p className="text-xl text-white font-light">

@@ -13,13 +13,12 @@ const HomeHeadMobile = () => {
       </div>
 
       {/* Contenido centrado */}
-      <div className="relative z-10 p-10 rounded-lg mx-auto h-fit w-3/4 md:w-1/2 text-center">
+      <div className="relative z-10  p-10 rounded-lg mx-auto h-fit w-3/4 md:w-1/2 text-center">
         <div
-          className="mb-2"
+          className="mb-2 text-3xl"
           style={{
             fontFamily: "'Playball', cursive", // Fuente Playball
             fontWeight: "700", // Peso de la fuente
-            fontSize: "3.5rem", // Tamaño de fuente ajustado para mayor legibilidad
             color: "#cb0c4f",
             // textShadow: "0 0 10px rgba(255, 255, 255, 0.3)", // Brillo eliminado
           }}

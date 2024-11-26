@@ -13,7 +13,12 @@ interface ICard {
   precio: number;
 }
 
-const CardLandingApp: React.FC<ICard> = ({ id, nombre, descripcion, precio }) => {
+const CardLandingApp: React.FC<ICard> = ({
+  id,
+  nombre,
+  descripcion,
+  precio,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { profesionales } = useSelector((state: any) => state.users); // Obtener la lista de profesionales del estado
@@ -167,7 +172,7 @@ const CardLandingApp: React.FC<ICard> = ({ id, nombre, descripcion, precio }) =>
             </button>
             <button
               onClick={() => setIsFormVisible(false)}
-              className="bg-[#cb0c4f] text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+              className="bg-[#cb0c4f] text-white h-full px-6 py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
             >
               Cancelar
             </button>

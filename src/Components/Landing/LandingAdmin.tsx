@@ -44,7 +44,7 @@ const LandingAdmin: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-700">
+    <div className="min-h-screen flex items-center justify-center ">
       {/* Contenido principal */}
       <div className="max-w-6xl w-full bg-white rounded-lg shadow-lg p-6">
         <header className="text-center mb-12">

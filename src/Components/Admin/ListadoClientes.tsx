@@ -41,9 +41,11 @@ const ListadoClientes: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <SidebarAdminApp /> {/* Sidebar agregado aquí */}
-      <main className="flex-1 p-8 relative overflow-hidden">
+    <div className="flex h-screen">
+      {/* Sidebar ajustado */}
+      <SidebarAdminApp />
+      {/* Contenedor principal */}
+      <main className="flex-1 relative overflow-hidden">
         {/* Fondo desenfocado */}
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -51,78 +53,89 @@ const ListadoClientes: React.FC = () => {
             backgroundImage: `url(${background})`,
             filter: "blur(3px)",
             zIndex: 1,
-            width: "100%",
-            height: "100%",
-            backgroundSize: "cover",
           }}
         ></div>
 
         {/* Overlay oscuro */}
-        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="absolute inset-0 bg-black opacity-20 z-1"></div>
 
-        <h2
-          className="text-4xl font-bold text-center mb-8 z-10 relative"
-          style={{
-            fontFamily: "'Playball', cursive",
-            fontWeight: "700",
-            color: "#cb0c4f",
-          }}
-        >
-          Listado de Clientes
-        </h2>
+        <div className="relative z-10 p-4 lg:p-8">
+          <h2
+            className="text-3xl lg:text-4xl font-bold text-center mb-8"
+            style={{
+              fontFamily: "'Playball', cursive",
+              fontWeight: "700",
+              color: "#cb0c4f",
+            }}
+          >
+            Listado de Clientes
+          </h2>
 
-        {/* Contenedor para los resultados */}
-        <div className="border border-gray-300 rounded-lg shadow-lg bg-white p-6 z-10 relative">
-          {clientes.length === 0 ? (
-            <p
-              className="text-gray-700 text-center"
-              style={{
-                fontFamily: "'Playball', cursive",
-                fontWeight: "400",
-                color: "#cb0c4f",
-              }}
-            >
-              No hay clientes registrados.
-            </p>
-          ) : (
-            <table className="min-w-full bg-white text-black border border-gray-200 shadow-sm rounded-lg">
-              <thead className="bg-[#cb0c4f] text-white">
-                <tr>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Nombre</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Apellido</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">DNI</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Email</th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200">Celular</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-50">
-                {clientes.map((cliente, index) => (
-                  <tr
-                    key={cliente._id}
-                    className={`${
-                      index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                    } hover:bg-[#cb0c4f] hover:bg-opacity-10 transition-colors`}
-                  >
-                    <td className="px-6 py-4 border-b border-gray-200 text-gray-700">
-                      {cliente.nombre}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-gray-700">
-                      {cliente.apellido}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-gray-700">
-                      {cliente.dni}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-gray-700">
-                      {cliente.email}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-gray-700">
-                      {cliente.celular}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+          {/* Contenedor de la tabla */}
+          <div className="bg-white border border-gray-300 rounded-lg shadow-lg p-4 lg:p-6">
+            {clientes.length === 0 ? (
+              <p
+                className="text-gray-700 text-center"
+                style={{
+                  fontFamily: "'Playball', cursive",
+                  fontWeight: "400",
+                  color: "#cb0c4f",
+                }}
+              >
+                No hay clientes registrados.
+              </p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full bg-white text-black border border-gray-200 shadow-sm rounded-lg">
+                  <thead className="bg-[#cb0c4f] text-white">
+                    <tr>
+                      <th className="px-4 lg:px-6 py-3 border-b-2 border-gray-200 text-sm lg:text-base">
+                        Nombre
+                      </th>
+                      <th className="px-4 lg:px-6 py-3 border-b-2 border-gray-200 text-sm lg:text-base">
+                        Apellido
+                      </th>
+                      <th className="px-4 lg:px-6 py-3 border-b-2 border-gray-200 text-sm lg:text-base">
+                        DNI
+                      </th>
+                      <th className="px-4 lg:px-6 py-3 border-b-2 border-gray-200 text-sm lg:text-base">
+                        Email
+                      </th>
+                      <th className="px-4 lg:px-6 py-3 border-b-2 border-gray-200 text-sm lg:text-base">
+                        Celular
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-gray-50">
+                    {clientes.map((cliente, index) => (
+                      <tr
+                        key={cliente._id}
+                        className={`${
+                          index % 2 === 0 ? "bg-white" : "bg-gray-100"
+                        } hover:bg-[#cb0c4f] hover:bg-opacity-10 transition-colors`}
+                      >
+                        <td className="px-4 lg:px-6 py-4 border-b border-gray-200 text-sm lg:text-base text-gray-700">
+                          {cliente.nombre}
+                        </td>
+                        <td className="px-4 lg:px-6 py-4 border-b border-gray-200 text-sm lg:text-base text-gray-700">
+                          {cliente.apellido}
+                        </td>
+                        <td className="px-4 lg:px-6 py-4 border-b border-gray-200 text-sm lg:text-base text-gray-700">
+                          {cliente.DNI}
+                        </td>
+                        <td className="px-4 lg:px-6 py-4 border-b border-gray-200 text-sm lg:text-base text-gray-700">
+                          {cliente.email}
+                        </td>
+                        <td className="px-4 lg:px-6 py-4 border-b border-gray-200 text-sm lg:text-base text-gray-700">
+                          {cliente.celular}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </div>
       </main>
     </div>

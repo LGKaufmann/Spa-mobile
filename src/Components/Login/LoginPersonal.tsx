@@ -30,7 +30,7 @@ export const LoginPersonal = () => {
 
   useEffect(() => {
     if (user && !loading) {
-      navigate("/admin");
+      navigate("/adminApp");
     }
   }, [user, loading, navigate]);
 

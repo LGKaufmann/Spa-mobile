@@ -49,7 +49,7 @@ const LandingApp: React.FC = () => {
       <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
 
       {/* Contenido principal */}
-      <header className="text-center mb-12 z-20 relative">
+      <header className="text-center mb-12 mt-12 z-20 relative">
         <h1
           className="text-6xl font-bold mb-4 drop-shadow-lg"
           style={{

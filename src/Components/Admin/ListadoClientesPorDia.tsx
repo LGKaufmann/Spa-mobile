@@ -13,7 +13,7 @@ interface ITurno {
     dni: string;
     email: string;
     celular: string;
-  } | null; 
+  } | null;
   profesional: {
     nombre: string;
     apellido: string;
@@ -44,7 +44,9 @@ const ListadoClientesPorDia: React.FC = () => {
 
         // Extraer servicios únicos para los filtros
         const serviciosUnicos = [
-          ...new Set(response.data.map((turno: ITurno) => turno.servicio.nombre)),
+          ...new Set(
+            response.data.map((turno: ITurno) => turno.servicio.nombre)
+          ),
         ];
         setServicios(serviciosUnicos as string[]);
       } catch (error) {
@@ -110,7 +112,7 @@ const ListadoClientesPorDia: React.FC = () => {
               type="date"
               value={fechaSeleccionada}
               onChange={(e) => setFechaSeleccionada(e.target.value)}
-              className="border border-gray-300 rounded-lg p-2"
+              className="border border-gray-300 rounded-lg max-w-24 p-2"
             />
           </div>
 
@@ -122,7 +124,7 @@ const ListadoClientesPorDia: React.FC = () => {
             <select
               value={servicioSeleccionado}
               onChange={(e) => setServicioSeleccionado(e.target.value)}
-              className="border border-gray-300 rounded-lg p-2"
+              className="border border-gray-300 rounded-lg max-w-44 p-2"
             >
               <option value="">Todos los servicios</option>
               {servicios.map((servicio) => (
@@ -208,7 +210,8 @@ const ListadoClientesPorDia: React.FC = () => {
                   {turno.servicio.descripcion}
                 </p>
                 <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Precio:</span> ${turno.servicio.precio}
+                  <span className="font-semibold">Precio:</span> $
+                  {turno.servicio.precio}
                 </p>
                 <p className="text-gray-700 mb-2">
                   <span className="font-semibold">Profesional:</span>{" "}
